@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
   <head>
     <title>The Hogwarts Online Store</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -11,7 +11,7 @@
     <div class="container">
       <h1>Product list</h1>
       <div>
-        <a class="btn btn-primary" href="productform.html">Add a New Product</a>
+        <a class="btn btn-primary" href="productform.html" th:href="@{/product/new}">Add a New Product</a>
       </div>
       <hr/>
       <table class="table table-striped table-hover">
@@ -24,21 +24,23 @@
           <th>Operations</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-          <td>Onions</td>
-          <td>2.41</td>
-          <td>yes</td>
+        <tbody th:remove="all-but-first">
+        <tr th:each="product:${prods}">
+          <td th:text="${product.name}">Onions</td>
+          <td th:text="${product.price}">2.41</td>
+          <td th:text="${product.inStock}">yes</td>
           <td>
-            <span>2</span> comment/s
-            <a class="btn btn-outline-info" href="comments.html">
+            <span th:text="${#lists.size(product.comments)}">2</span> comment/s
+            <a class="btn btn-outline-info" href="comments.html"
+               th:href="@{/product/comments(prodId=${product.id})}"
+               th:unless="${#lists.isEmpty(product.comments)}">
               View
             </a>
           </td>
           <td>
-            <a class="btn btn-info" href="show.html">Details</a>
-            <a class="btn btn-warning" href="productform.html">Edit</a>
-            <a class="btn btn-danger">Delete</a>
+            <a class="btn btn-info" href="show.html" th:href="@{'/product/show/' + ${product.id}}">Details</a>
+            <a class="btn btn-warning" href="productform.html" th:href="@{'/product/edit/' + ${product.id}}">Edit</a>
+            <a class="btn btn-danger" th:href="@{'/product/delete/' + ${product.id}}">Delete</a>
           </td>
         </tr>
         <tr class="odd">
