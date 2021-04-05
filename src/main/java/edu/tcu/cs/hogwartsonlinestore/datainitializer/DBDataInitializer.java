@@ -3,6 +3,9 @@ package edu.tcu.cs.hogwartsonlinestore.datainitializer;
 import edu.tcu.cs.hogwartsonlinestore.dao.ProductRepository;
 import edu.tcu.cs.hogwartsonlinestore.domain.Comment;
 import edu.tcu.cs.hogwartsonlinestore.domain.Product;
+import edu.tcu.cs.hogwartsonlinestore.domain.User;
+import edu.tcu.cs.hogwartsonlinestore.service.ProductService;
+import edu.tcu.cs.hogwartsonlinestore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -12,7 +15,10 @@ import java.math.BigDecimal;
 @Component
 public class DBDataInitializer implements CommandLineRunner {
     @Autowired
-    private ProductRepository productRepository;
+    private ProductService productService;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -168,36 +174,61 @@ public class DBDataInitializer implements CommandLineRunner {
         prod30.addComment(new Comment(20, "Taste is OK, but I agree with previous comment that bars are too hard to eat"));
         prod30.addComment(new Comment(21, "Would definitely NOT buy again. Simply unedible!"));
 
-        productRepository.save(prod1);
-        productRepository.save(prod2);
-        productRepository.save(prod3);
-        productRepository.save(prod4);
-        productRepository.save(prod5);
-        productRepository.save(prod6);
-        productRepository.save(prod7);
-        productRepository.save(prod8);
-        productRepository.save(prod9);
-        productRepository.save(prod10);
-        productRepository.save(prod11);
-        productRepository.save(prod12);
-        productRepository.save(prod13);
-        productRepository.save(prod14);
-        productRepository.save(prod15);
-        productRepository.save(prod16);
-        productRepository.save(prod17);
-        productRepository.save(prod18);
-        productRepository.save(prod19);
-        productRepository.save(prod20);
-        productRepository.save(prod21);
-        productRepository.save(prod22);
-        productRepository.save(prod23);
-        productRepository.save(prod24);
-        productRepository.save(prod25);
-        productRepository.save(prod26);
-        productRepository.save(prod27);
-        productRepository.save(prod28);
-        productRepository.save(prod29);
-        productRepository.save(prod30);
+        productService.save(prod1);
+        productService.save(prod2);
+        productService.save(prod3);
+        productService.save(prod4);
+        productService.save(prod5);
+        productService.save(prod6);
+        productService.save(prod7);
+        productService.save(prod8);
+        productService.save(prod9);
+        productService.save(prod10);
+        productService.save(prod11);
+        productService.save(prod12);
+        productService.save(prod13);
+        productService.save(prod14);
+        productService.save(prod15);
+        productService.save(prod16);
+        productService.save(prod17);
+        productService.save(prod18);
+        productService.save(prod19);
+        productService.save(prod20);
+        productService.save(prod21);
+        productService.save(prod22);
+        productService.save(prod23);
+        productService.save(prod24);
+        productService.save(prod25);
+        productService.save(prod26);
+        productService.save(prod27);
+        productService.save(prod28);
+        productService.save(prod29);
+        productService.save(prod30);
+
+        // create some users
+        User u1 = new User();
+        u1.setUsername("john");
+        u1.setPassword("123456");
+        u1.setEnabled(true);
+        u1.setRoles("admin");
+        u1.setFirstname("John");
+        u1.setLastname("Apricot");
+
+        User u2 = new User();
+        u2.setUsername("eric");
+        u2.setPassword("654321");
+        u2.setEnabled(true);
+        u2.setRoles("user");
+
+        User u3 = new User();
+        u3.setUsername("tom");
+        u3.setPassword("qwerty");
+        u3.setEnabled(false);
+        u3.setRoles("user");
+
+        userService.save(u1);
+        userService.save(u2);
+        userService.save(u3);
 
     }
 }
