@@ -210,7 +210,7 @@ public class DBDataInitializer implements CommandLineRunner {
         u1.setUsername("john");
         u1.setPassword("123456");
         u1.setEnabled(true);
-        u1.setRoles("admin");
+        u1.setRoles("admin,user,headmaster");
         u1.setFirstname("John");
         u1.setLastname("Apricot");
 

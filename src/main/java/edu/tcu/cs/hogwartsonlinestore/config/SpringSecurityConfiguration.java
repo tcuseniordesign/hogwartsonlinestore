@@ -15,12 +15,19 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .mvcMatchers("/h2-console/**", "/css/**", "/js/**", "/logo.jpg", "/favicon/**").permitAll()
-                .mvcMatchers("/product/delete/**").hasAuthority("admin")
-                .anyRequest().authenticated() // anything else must be authenticated
-                .and()
+                    .mvcMatchers("/h2-console/**", "/css/**", "/js/**", "/logo.jpg", "/favicon/**").permitAll()
+                    .mvcMatchers("/product/delete/**").hasAuthority("admin")
+                    .anyRequest().authenticated() // anything else must be authenticated
+                    .and()
                 .formLogin()
-                .loginPage("/login").permitAll(); // let anonymous user access login page
+                    .loginPage("/login").permitAll() // let anonymous user access login page
+                    .and()
+                .logout()
+                    .logoutSuccessUrl("/login")
+                    .invalidateHttpSession(true)
+                    .and()
+                .exceptionHandling()
+                    .accessDeniedPage("/access_denied"); // 403 error
 
         // for h2 console
         http.csrf().ignoringAntMatchers("/h2-console/**");
@@ -28,7 +35,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

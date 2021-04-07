@@ -77,9 +77,9 @@
                 <label class="col-sm-2 col-form-label">Image:</label>
                 <div class="col-sm-10">
                     <div class="input-group mb-3 px-2 py-2 rounded-pill bg-white shadow-sm">
+                        <!--upload image-->
                         <input id="uploadBox" type="file" name="image" onchange="readURL(this);"
                                class="form-control border-0">
-                        <!--                        <label id="upload-label" for="uploadBox" class="font-weight-light text-muted">Choose file</label>-->
                         <div class="input-group-append">
                             <label for="uploadBox" class="btn btn-light m-0 rounded-pill px-4"> <i
                                     class="fa fa-cloud-upload mr-2 text-muted"></i><small
@@ -87,7 +87,9 @@
                         </div>
                     </div>
                     <div class="image-area mt-4">
-                        <img id="imageResult" src="#" alt=""
+                        <!--display image of this product-->
+                        <input type="hidden" th:field="*{imageURL}"/>
+                        <img id="imageResult" src="#" th:src="*{imageURL}" alt=""
                              class="img-fluid rounded shadow-sm mx-auto d-block" width="200px"/>
                     </div>
                 </div>
